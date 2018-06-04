@@ -1,0 +1,59 @@
+<html>
+<body style='height:100%;background:linear-gradient(#008, #00C);'>
+<script>
+var TB = [
+  "0;0;01;656575;Dark;Sombrio",
+  "0;1;02;9A9FA0;Normal;Normal",
+  "0;2;03;CEC18F;Rock;Rocha",
+  "0;3;04;D78656;Ground;Terra",
+  "1;3;05;D8425D;Fight;Lutador",
+  "2;3;06;FB8684;Psychic;Psíquico",
+  "3;3;07;FFA44F;Fire;Fogo",
+  "4;3;08;F6D957;Eletric;Elétrico",
+  "5;3;09;9BC42F;Bug;Inseto",
+  "6;3;10;5DBD64;Grass;Planta",
+  "6;2;11;559AA4;Steel;Aço",
+  "6;1;12;80D4C9;Ice;Gelo",
+  "6;0;13;9AB4E5;Flying;Voador",
+  "5;0;14;60ABDD;Water;Água",
+  "4;0;15;0875BF;Dragon;Dragão",
+  "3;0;16;676EC1;Ghost;Fantasma",
+  "2;0;17;B663CE;Poison;Venenoso",
+  "1;0;18;EE99E2;Fairy;Fada"
+];
+
+var WS = window.innerWidth;
+var HS = window.innerHeight;
+var DW = WS / 4;
+var DH = HS / 8;
+var DR = Math.min(DW,DH);
+var MG = 15;
+
+for (var i=0; i<TB.length; i++) {
+   var d = TB[i].split(';');
+   var e = document.createElement("IMG");
+   e.src = "image/"+d[4]+".png";
+   e.style.position="absolute";
+   e.style.top = (DR*d[0])+'px';
+   e.style.left= (DR*d[1])+'px';
+   e.style.width =(DR-2*MG)+'px';
+   e.style.height=(DR-2*MG)+'px';
+   e.style.border="none";
+   e.style.margin=MG+'px';
+   e.style.borderRadius=(DR/2)+'px';
+   e.onmouseover = function(){this.style.margin='0px';this.style.border=MG+'px solid #B8F1CF';this.style.backgroundColor='#B8F1CF';};
+   document.body.appendChild(e);
+}
+
+   var e = document.createElement("IMG");
+   e.style.position="absolute";
+   e.style.top = (2*DR)+'px';
+   e.style.left= (2*DR)+'px';
+   e.style.width =(DR)+'px';
+   e.style.height=(DR)+'px';
+   e.style.border=MG+"px solid #EEE";
+   e.style.borderRadius=(DR/2)+'px';
+   document.body.appendChild(e);
+</script>
+</body>
+</html>
