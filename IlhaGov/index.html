@@ -28,8 +28,6 @@ for(var i=0; i<LG.length; i++) { d = LG[i].split(";"); TG[TG.length++]={lat:"-22
 <script>
 with(document.getElementById("map")){width=Math.trunc(FC*2600.0); height=Math.trunc(FC*1500.0); };
 var W = document.getElementById("win");
-W.style.width =WW+'px';
-W.style.height=WH+'px';
 for(var i=0; i<TG.length; i++) {
    var e = document.createElement("DIV");
    e.id = i;
@@ -46,6 +44,10 @@ for(var i=0; i<TG.length; i++) {
    }
    e.onclick=function(){alert(TG[this.id].tit);
       Tw(W);
+W.style.width ='100vw';
+W.style.height='100vh';
+W.style.top =window.scrollTop();
+W.style.left=window.scrollLeft();
    };
    document.body.appendChild(e);
 };
