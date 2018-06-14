@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-store"/>
+<meta http-equiv="Cache-Control" content="no-store" utf="iso-8859-1"/>
 <style>
 </style>
 </head>
@@ -68,7 +68,7 @@ for(var i=0; i<TG.length; i++) {
    }
    e.onclick=function(){
       W.gym = this.id;
-      document.getElementById("txt").innerText = escape(TG[this.id].tit);
+      document.getElementById("txt").innerText = TG[this.id].tit;
       Tw(W);
       with(W.style){
       left=window.scrollX+(WW/2)-100+"px"; //(FC*Cx(TG[this.id].lng)-SB/2)+"px";
