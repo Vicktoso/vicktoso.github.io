@@ -36,7 +36,7 @@ function Zm(x,y) {
 	      top =(FT*FC*Cy(TG[i].lat)-SB/2)+"px";
        }
     }
-    window.scrollTo(FT*x-WW/2,FT*y-WH/2);
+    window.scrollTo(FT*x-WW/2,FT*y-WH/2); //Math.min(Math.max(FT*x-WW/2,WW/2),FT*FC*2600.0-WW/2),Math.min(Math.max(FT*y-WH/2,WH/2),FT*FC*1500.0-WH/2));
 }
 function Mp(e) { Zm(e.pageX,e.pageY) }
 
