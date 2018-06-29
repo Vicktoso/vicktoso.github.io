@@ -33,18 +33,54 @@ var WH = window.innerHeight;
 var WW = window.innerWidth;
 var FC = WH/1500.0;
 var FT = 1.0;
+var FG = 2.0;
 var NW = 300;
 var NH = 70;
 var PD = 10;
 var SB = 14;
 var TC = ["#FFFFFF","#F4C299","#CEE0E6","#FFED56"];
-var LG = ["821103;228500;A Águia ","814803;245596;Aeroporto Internacional Do Galeão ","826503;236170;Águia do 1/1 GT","799892;197009;Arcada Dentária ","797925;184713;Art Grafite MC Cegonha","806241;206787;Art Grafite Pinto Sem Perna","801830;206656;Arte De Rua - Copa 2010","792681;169914;Arte Urbana - Urso Apaixonado","787844;175733;Assembléia de Deus ","797770;175273;Backyardgans Art Mural","800589;209208;Bandeira 2013 Street Art","812056;180728;Big Fish","794347;201809;Bob Esponja E As Baratas","793022;184370;Busto De Manoel Madruga","817895;228212;Caixa D'água Da Escola ","800302;202656;Caixa D'água Do Centro Comercial Do Village","802004;191304;Caixa D'água Do Dendê","813144;197008;Capelinha Nossa Senhora de Fátima","803743;206341;Carmanguia Ferrado","814634;176483;Carranca das Pitangueiras","800275;207452;Caveira Mexicana","796050;207094;Centro Esportivo Municipal Parque Royal","805587;211143;Chafariz da Ilha do Governador","808828;178272;Cogumelo Grafiteiro","807477;178968;Comandante Nelson Mege","795441;194901;Comunidade Evangélica Propósito","802600;181481;Comunidade Profética Renovo","807940;191269;Congregação Cristã No Brasil","822746;178661;Congregação Galiléia ","791664;168963;Correios Freguesia Ilha do Governador","798240;197931;Cristo Despedaçado ","813036;187328;Cruz Cemitério Do Cacuia","811189;191556;Dama Iluminada ","814836;196244;Escultura Em Chaves anjo da Guarda ","804189;179104;Estação das Barcas Cocota","785932;186343;Grafite de Rua","807328;181346;Grafite Ilha","799056;202788;Grafiteiros - Street Art ","812065;179883;Grafitti Monkster Originais","821670;172927;Gruta Da Paróquia Da Ribeira","816366;188122;Igreja Apostólica Unidade em Cristo","807444;195710;Igreja Batista Em Guarabu","796309;204438;Igreja Batista no Moneró","795252;179797;Igreja Casa da Benção","803889;210555;Igreja Comunidade Evangélica De Nilopolis","796038;183254;Igreja internacional da Graça de Deus","811100;190137;Igreja Internacional Da Graça De Deus Na Ilha","822710;174664;Igreja Maranata Ilha","793037;170333;Igreja N.S. D'Ajuda ","821994;188661;Igreja Nossa Senhora De Nazareth","818250;187838;Igreja Presbiteriana  Do Jardim","819137;201809;igrejinha da pdb","799463;186176;Igrejinha Do Dende","806016;199617;Macaco Louco -Street Art","799993;209472;Mesa De Damas da Portuguesa","803877;181849;Ministério Evangélico Edificar","811470;251705;Monumento em Homenagem a Alberto Santos Dumont","799115;209825;Monumento Em Homenagem Ao Pioneiro Da Aviação Nacional","817058;183938;Mosquito Da Dengue ","818991;201184;Muié Na Vitória Régia Da Pdb","794421;172807;Navegando No livro","810852;185683;Navegar És Preciso ","816895;183060;O Brasileiro ","797027;191494;O Cone","801984;190982;O Nadador","810857;185000;Obelisco Do Cacuia","825881;233013;Obelisco Do Galeão ","805025;182722;Os Jogadores ","794648;173663;Painel Carioca - Street Art","794968;182657;Paróquia de Santo Antonio","796422;203081;Parque AEIOU 12345","789277;161532;Pedra da Onça","818649;198365;Placa Reurbanização da Praia da Bica","796963;192717;Portuga`s Bar Lanchonete","813123;207512;Praça Do Jardim","817442;190199;Praça do Jardim Guanabara","792990;184606;Praça Manoel Madruga","798175;198332;Praça Papai Noel","812895;213289;Praça Superior Do Quebra Coco","801644;204014;Praça Superior Do Village","816183;206616;Pracinha Do Jardim","820495;176622;Primeira Igreja Batista Da Ilha Do Governador","804455;202724;Q Pourrran e Essa","793916;198601;Relógio Digital Do Corredor Esportivo","811872;191715;Relógio do Cacuia","823849;169062;Rosa Cruz - Ilha do Governador","797733;188652;Salão Do Reino Das Testemunhas de Jeová","805082;210022;Sr Carpa Pescador","790023;181003;Sunflower","794929;186486;Torre Da ETIG","794219;177576;Velha Das Pedras","784312;226393;Vitral da Garça ","809017;196006;Vovó Malhada ","814563;246742;Wall Art"];
-var s = document.getElementById("sel");
-for(var i=0;i<LG.length;i++){s.options.length++;s.options[i+1].value=i;s.options[i+1].text=TG[i].tit;}
-with(document.getElementById("m1")){width=Math.trunc(FC*2600.0); height=Math.trunc(FC*1500.0); };
-with(document.getElementById("m2")){width=Math.trunc(2*FC*2600.0); height=Math.trunc(2*FC*1500.0); };
-var W = document.getElementById("bk");
-var W2= document.getElementById("w1");
-var W3= document.getElementById("d1");
+var GM = ["A1;821103;228500;A Águia","A2;814803;245596;Aeroporto Internacional Do Galeão","A3;826503;236170;Águia do 1/1 GT","A4;799892;197009;Arcada Dentária","A5;797925;184713;Art Grafite MC Cegonha","A6;806241;206787;Art Grafite Pinto Sem Perna","A7;801830;206656;Arte De Rua - Copa 2010","A8;792681;169914;Arte Urbana - Urso Apaixonado","A9;787844;175733;Assembléia de Deus","B0;797770;175273;Backyardgans Art Mural","B1;800589;209208;Bandeira 2013 Street Art","B2;812056;180728;Big Fish","B3;794347;201809;Bob Esponja E As Baratas","B4;793022;184370;Busto De Manoel Madruga","B5;817895;228212;Caixa D'água Da Escola","B6;800302;202656;Caixa D'água Do Centro Comercial Do Village","B7;802004;191304;Caixa D'água Do Dendê","B8;798643;173131;Camelos na Pedra","B9;813144;197008;Capelinha Nossa Senhora de Fátima","C0;803743;206341;Carmanguia Ferrado","C1;814634;176483;Carranca das Pitangueiras","C2;800275;207452;Caveira Mexicana","C3;796050;207094;Centro Esportivo Municipal Parque Royal","C4;805587;211143;Chafariz da Ilha do Governador","C5;808828;178272;Cogumelo Grafiteiro","C6;807477;178968;Comandante Nelson Mege","C7;795441;194901;Comunidade Evangélica Propósito","C8;802600;181481;Comunidade Profética Renovo","C9;807940;191269;Congregação Cristã No Brasil","D0;822746;178661;Congregação Galiléia","D1;791664;168963;Correios Freguesia Ilha do Governador","D2;798240;197931;Cristo Despedaçado","D3;813036;187328;Cruz Cemitério Do Cacuia","D4;811189;191556;Dama Iluminada","D5;814836;196244;Escultura Em Chaves anjo da Guarda","D6;804189;179104;Estação das Barcas Cocota","D7;785932;186343;Grafite de Rua","D8;807328;181346;Grafite Ilha","D9;799056;202788;Grafiteiros - Street Art","E0;812065;179883;Grafitti Monkster Originais","E1;821670;172927;Gruta Da Paróquia Da Ribeira","E2;816366;188122;Igreja Apostólica Unidade em Cristo","E3;807444;195710;Igreja Batista Em Guarabu","E4;796309;204438;Igreja Batista no Moneró","E5;795252;179797;Igreja Casa da Benção","E6;803889;210555;Igreja Comunidade Evangélica De Nilopolis","E7;796038;183254;Igreja internacional da Graça de Deus","E8;811100;190137;Igreja Internacional Da Graça De Deus Na Ilha","E9;822710;174664;Igreja Maranata Ilha","F0;793037;170333;Igreja N.S. D'Ajuda","F1;821994;188661;Igreja Nossa Senhora De Nazareth","F2;818250;187838;Igreja Presbiteriana  Do Jardim","F3;819137;201809;igrejinha da pdb","F4;799463;186176;Igrejinha Do Dende","F5;806016;199617;Macaco Louco -Street Art","F6;799993;209472;Mesa De Damas da Portuguesa","F7;803877;181849;Ministério Evangélico Edificar","F8;811470;251705;Monumento em Homenagem a Alberto Santos Dumont","F9;799115;209825;Monumento Em Homenagem Ao Pioneiro Da Aviação Nacional","G0;817058;183938;Mosquito Da Dengue","G1;818991;201184;Muié Na Vitória Régia Da Pdb","G2;794421;172807;Navegando No livro","G3;810852;185683;Navegar És Preciso","G4;816895;183060;O Brasileiro","G5;797027;191494;O Cone","G6;801984;190982;O Nadador","G7;810857;185000;Obelisco Do Cacuia","G8;825881;233013;Obelisco Do Galeão","G9;805025;182722;Os Jogadores","H0;794648;173663;Painel Carioca - Street Art","H1;794968;182657;Paróquia de Santo Antonio","H2;796422;203081;Parque AEIOU 12345","H3;789277;161532;Pedra da Onça","H4;818649;198365;Placa Reurbanização da Praia da Bica","H5;796963;192717;Portuga`s Bar Lanchonete","H6;813123;207512;Praça Do Jardim","H7;817442;190199;Praça do Jardim Guanabara","H8;792990;184606;Praça Manoel Madruga","H9;798175;198332;Praça Papai Noel","I0;812895;213289;Praça Superior Do Quebra Coco","I1;801644;204014;Praça Superior Do Village","I2;816183;206616;Pracinha Do Jardim","I3;820495;176622;Primeira Igreja Batista Da Ilha Do Governador","I4;804455;202724;Q Pourrran e Essa","I5;793916;198601;Relógio Digital Do Corredor Esportivo","I6;811872;191715;Relógio do Cacuia","I7;823849;169062;Rosa Cruz - Ilha do Governador","I8;797733;188652;Salão Do Reino Das Testemunhas de Jeová","I9;805082;210022;Sr Carpa Pescador","J0;790023;181003;Sunflower","J1;794929;186486;Torre Da ETIG","J2;794219;177576;Velha Das Pedras","J3;784312;226393;Vitral da Garça","J4;809017;196006;Vovó Malhada","J5;814563;246742;Wall Art"];
+var M1 = document.getElementById("m1");
+var M2 = document.getElementById("m2");
+var BK = document.getElementById("bk");
+var W1 = document.getElementById("w1");
+var D1 = document.getElementById("d1");
+M1.width = Math.trunc(FC*2600.0);
+M1.height= Math.trunc(FC*1500.0);
+M2.width = Math.trunc(FG*FC*2600.0);
+M2.height= Math.trunc(FG*FC*1500.0);
+
+var CD = new Array();
+var LT = new Array();
+var LG = new Array();
+var NM = new Array();
+var RK = new Array();
+var DV = new Array();
+for(var i=0; i<GM.length; i++) {
+   var p = GM[i].split(";");
+   CD[i] = p[0];
+   LT[i] = Math.trunc(FC*Cy("-22."+p[1]));
+   LG[i] = Math.trunc(FC*Cx("-43."+p[2]));
+   NM[i] = p[3];
+}
+
+for(var i=0; i<GM.length; i++) {
+   var e = document.createElement("DIV");
+   e.id = i;
+   with(e.style) {
+      position = "absolute";
+      left = (LG[i]-SB/2)+"px";
+      top  = (LT[i]-SB/2)+"px";
+      zIndex =i+2;
+      width  = SB+"px";
+      height = SB+"px";
+      borderRadius = SB+"px";
+      border = "1px solid black";
+      backgroundColor = TC[0];
+   }
+   e.onclick=function(){ alert('oi'); };
+   document.body.appendChild(e);
+   DV[i] = e;
+}
 </script>
 </html>
