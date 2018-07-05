@@ -6,18 +6,28 @@
 <meta http-equiv="Cache-Control" content="no-store"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style>
-body {padding:0;margin:0;background-color:AADAFF;}
-span {font-size:10pt;font-weight:bold;font-family:arial, sans-serif;line-height:90%;}
+body {padding:0;margin:0;background-color:#AADAFF; font-size:10pt;font-weight:bold;font-family:arial, sans-serif;line-height:90%;}
+.sk { color:grey; font-weight:normal; }
+B { color:black; }
 </style>
 </head>
 <body>
 <img id='m1' src="ilha-15.png" style="position:absolute;top:0;left:0;z-index:0;display:block;" onclick="ZZ(event)"/>
 <img id='m2' src="ilha-15.png" style="position:absolute;top:0;left:0;z-index:0;display:none; " onclick="ZZ(event)"/>
-<div id='bk' style="position:fixed;top:0px;left:0px;width:100%;height:100%;background-color:#CCC;opacity:0.5;z-index:900;display:none;"></div>
+<div id='bk' style="position:fixed;top:0px;left:0px;width:100%;height:100%;background-color:#777;opacity:0.5;z-index:900;display:none;"></div>
 <div id='w1' style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:901;display:none;" onclick="Cw(event)">
  <div id='d1' style="position:fixed;background-color:white;padding:10px;border-radius:10px;z-index:902;" onclick="Cw(event)"></div>
 </div>
-<div style='position:fixed;top:10px;right:10px;background-color:white;width:30px;height:30px;border-radius:10px;z-index:899;' onclick='ST()'><img src='gear.png'/></div>
+<div id='s1' style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:901;display:none;">
+ <div style="position:fixed;top:10px;left:10px;right:130px;height:30px;border:1px red solid;">
+  <input type='text' id='sc' style="position:absolute;right:40px;background-color:white;padding: 0px 5px 0px 5px;border:none;border-radius:5px;height:30px;z-index:902;" onkeyup='Sk()'/>
+  <div style='position:absolute;right:0px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='Sw(event)'><img src='close.png'/></div>
+ </div>
+ <div id='l1' style="position:fixed;top:50px;left:10px;right:10px;padding:5px;background-color:white;border:1px red solid;border-radius:5px;"></div>
+</div>
+<div style='position:fixed;top:10px;right:10px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='ST()'><img src='gear.png'/></div>
+<div style='position:fixed;top:10px;right:50px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='SL()'><img src='list.png'/></div>
+<div style='position:fixed;top:10px;right:90px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='SS()'><img src='find.png'/></div>
 </body>
 <script charset="UTF-8">
 function Tg(t) { with(t.style) display = (display=='block')?'none':'block'; }
@@ -47,6 +57,7 @@ function TT(n) {
 }
 function YY() {for(var i=0;i<4;i++) document.getElementById("mk"+i).style.borderColor = (GG[i]=='S')?"black":"#DDD";}
 function Cw(e) { if (W1.tp=='Gym')Bd(DV[UL],false); Tg(W1); Tg(BK); e.stopPropagation(); }
+function Sw(e) { L1.innerHTML = ''; L1.style.visibility='hidden'; SC.value=''; Tg(S1); Tg(BK); e.stopPropagation(); }
 function Tc(e,n) {
    var s = document.cookie;
    if (W1.tp=='Gym') {
@@ -84,6 +95,28 @@ function ST() {
    W1.tp = 'Sum';
    Tg(W1);
 }
+function SL() { alert('Not yet!'); }
+function SS() { Tg(S1); Tg(BK); }
+function Sk() {
+   L1.style.visibility = 'hidden'
+   L1.innerHTML = '';
+   if (SC.value!='') {
+	   for(var i=0; i<GM.length; i++)
+		  if (NM[i].indexOf(SC.value)>-1) {
+			 var e = document.createElement('DIV');
+			 e.idx = i;
+			 e.style.height = '24px';
+			 e.style.lineHeight = '24px';
+			 e.innerHTML = '<div style="display:inline-block;width:10px;height:10px;border-radius:10px;border:1px solid black;background-color:'+TC[RK[i]]+'"></div> <span class="sk">'+NM[i].replace(SC.value,'<B>'+SC.value+'</B>')+'</span>';
+			 e.onclick = function() {
+			    L1.innerHTML = ''; L1.style.visibility='hidden'; SC.value=''; Tg(S1); Tg(BK);
+			    Zm(LG[this.idx],LT[this.idx]);
+			 }
+			 L1.appendChild(e);
+		  }
+	   if (L1.childElementCount>0) L1.style.visibility = 'visible'
+   }
+}
 var WH = window.innerHeight;
 var WW = window.innerWidth;
 var FC = WH/1500.0;
@@ -100,6 +133,10 @@ var M2 = document.getElementById('m2');
 var BK = document.getElementById('bk');
 var W1 = document.getElementById('w1');
 var Dl = document.getElementById('d1');
+var S1 = document.getElementById('s1');
+var SC = document.getElementById('sc');
+var L1 = document.getElementById('l1');
+
 var s = '<table width="100%"><tr><td colspan="4" align="center"><span id="tt"></span><br/><br/></td></tr><tr>';
 for(var i=0; i<4; i++) s += '<td align="center"><div id="mk'+i+'" style="width:20px;height:20px;border:3px solid #DDD;border-radius:20px;background-color:'+TC[i]+';" onclick="Tc(event,'+i+')"></div><span id="tt'+i+'"></span></td>'
 s += '</tr></table>';
@@ -109,8 +146,11 @@ M1.height= Math.trunc(FC*1500.0);
 M2.width = Math.trunc(FG*FC*2600.0);
 M2.height= Math.trunc(FG*FC*1500.0);
 
-document.cookie='';
-if (document.cookie=='') document.cookie='@01SSSS; expires=01 Jan 2050 00:00:00 UTC; path=/;';
+if (document.cookie=='') {
+alert(document.cookie);
+document.cookie='@01SSSS; expires=01 Jan 2050 00:00:00 UTC; path=/;';
+alert(document.cookie);
+}
 var GG = new Array();
 for(var i=0; i<4; i++) GG[i] = document.cookie.substr(i+3,1);
 
