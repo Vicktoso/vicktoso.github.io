@@ -6,24 +6,49 @@
 <meta http-equiv="Cache-Control" content="no-store"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style>
-body {padding:0;margin:0;}
-span {font-size:10pt;font-weight:bold;font-family:arial, sans-serif;line-height:90%;}
+body {padding:0;margin:0;background-color:#AADAFF; font-size:10pt;font-weight:bold;font-family:arial, sans-serif;line-height:90%;}
+.sk { color:grey; font-weight:normal; }
+B { color:black; }
+.hv { height:24px; line-height:24px; white-sSpace:nowrap; overflow:hidden; text-overflow:ellipsis; vertical-align:middle; }
+.hv:hover { background-color: #E0E0E0; }
 </style>
 </head>
 <body>
 <img id='m1' src="ilha-15.png" style="position:absolute;top:0;left:0;z-index:0;display:block;" onclick="ZZ(event)"/>
 <img id='m2' src="ilha-15.png" style="position:absolute;top:0;left:0;z-index:0;display:none; " onclick="ZZ(event)"/>
-<div id='bk' style="position:fixed;top:0px;left:0px;width:100%;height:100%;background-color:#CCC;opacity:0.5;z-index:900;display:none;"></div>
+<div id='bk' style="position:fixed;top:0px;left:0px;width:100%;height:100%;background-color:#777;opacity:0.5;z-index:900;display:none;"></div>
 <div id='w1' style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:901;display:none;" onclick="Cw(event)">
  <div id='d1' style="position:fixed;background-color:white;padding:10px;border-radius:10px;z-index:902;" onclick="Cw(event)"></div>
 </div>
-<div style='position:fixed;top:5px;margin-left:95%;background-color:white;width:30px;height:30px;border-radius:10px;z-index:903;' onclick='ST()'></div>
+<div id='s1' style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:901;display:none;">
+ <div style="position:fixed;top:10px;left:10px;right:130px;height:30px;">
+  <input type='text' id='sc' style="position:absolute;right:40px;background-color:white;padding: 0px 5px 0px 5px;border:none;border-radius:5px;height:30px;z-index:902;" onkeyup='Sk()'/>
+  <div style='position:absolute;right:0px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='Sw(event)'><img src='close.png'/></div>
+ </div>
+ <div id='l1' style="position:fixed;top:50px;left:10px;right:10px;padding:5px;background-color:white;border-radius:5px;visibility:hidden;overflow-y:auto;overflow-x:hidden;"></div>
+</div>
+<div style='position:fixed;top:10px;right:10px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='ST()'><img src='gear.png'/></div>
+<div style='position:fixed;top:10px;right:50px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='SL()'><img src='list.png'/></div>
+<div style='position:fixed;top:10px;right:90px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='SS()'><img src='find.png'/></div>
 </body>
 <script charset="UTF-8">
 function Tg(t) { with(t.style) display = (display=='block')?'none':'block'; }
 function Cx(lng) { return 9+Math.floor(1000000*(parseFloat(lng)+43.265925)/(110240.0/2569.0)); }
 function Cy(lat) { return 5-Math.floor(1000000*(parseFloat(lat)+22.775753)/( 58224.0/1472.0)); }
-function Bd(c,f) {with(c.style) {borderColor=(f)?"#00F":"black"; borderWidth=(f)?"3px":"1px"; }}
+function Bd(c,f) {
+   with(c.style) {
+      if (f) {
+         border ='4px solid #00F';
+		 left = (parseInt(left.slice(0,-2),10)-3)+'px';
+		 top  = (parseInt(top.slice(0,-2),10)-3)+'px';
+      } else {
+         border ='1px solid black';
+		 left = (parseInt(left.slice(0,-2),10)+3)+'px';
+		 top  = (parseInt(top.slice(0,-2),10)+3)+'px';
+      }
+   }
+}
+function Vz() { for(var i=0;i<GM.length;i++) DV[i].style.display=(GG[RK[i]]=='S')?'block':'none'; }
 function Zm(x,y) {
    Tg(M1);
    Tg(M2);
@@ -38,23 +63,36 @@ function Zm(x,y) {
    window.scrollTo(zx,zy);
 }
 function ZZ(e){Zm(e.pageX,e.pageY);}
-function TT(n) {for(var i=0;i<4;i++) document.getElementById("mk"+i).style.borderColor = (i==n)?"black":"#DDD";}
-function Cw(e) { Bd(DV[UL],false); Tg(W1); Tg(BK); e.stopPropagation(); }
-function Tc(e,n) {
-   if (W1.tp=='Gym') {
-	   TT(n);
-	   RK[UL] = n;
-	   var s = document.cookie;
-	   var q = s.indexOf(','+CD[UL]);
-	   if (q>-1)
-		  s = s.substr(0,q+3)+n+s.substr(q+4);
-	   else
-		  s = s.substr(0,3)+','+CD[UL]+n+s.substr(3);
-	   document.cookie = s+'; expires=01 Jan 2050 00:00:00 UTC; path=/;';
-	   DV[UL].style.backgroundColor = TC[n];
-	   Cw(e);
-   } else {
+function TT(n) {
+   for(var i=0;i<4;i++) {
+      document.getElementById("mk"+i).style.borderColor = (i==n)?"black":"#DDD";
+      document.getElementById("tt"+i).innerHTML = '';
    }
+}
+function YY() {for(var i=0;i<4;i++) document.getElementById("mk"+i).style.borderColor = (GG[i]=='S')?"black":"#DDD";}
+function Cw(e) { Tg(W1); Tg(BK); e.stopPropagation(); }
+function Su()  { L1.innerHTML = ''; L1.style.visibility='hidden'; SC.value=''; Tg(S1); Tg(BK); }
+function Sw(e) { Su(); e.stopPropagation(); }
+function Tc(e,n) {
+   var s = document.cookie;
+   if (W1.tp=='Gym') {
+	  TT(n);
+	  RK[UL] = n;
+	  var q = s.indexOf(','+CD[UL]);
+	  if (q>-1)
+		 s = s.substr(0,q+3)+n+s.substr(q+4);
+	  else
+	     s = s.substr(0,7)+','+CD[UL]+n+s.substr(7);
+	  DV[UL].style.backgroundColor = TC[n];
+	  Cw(e);
+   } else {
+      GG[n] = (GG[n]=='S')?'N':'S';
+      YY();
+      Vz();
+      s = s.substr(0,3)+GG.join('')+s.substr(7);
+      e.stopPropagation();
+   }
+   document.cookie = s+'; expires=01 Jan 2050 00:00:00 UTC; path=/;';
 }
 function ST() {
    var a = [0,0,0,0];
@@ -62,6 +100,7 @@ function ST() {
    Tg(BK);
    document.getElementById('tt').innerText = GM.length+' Ginásios';
    for(var i=0;i<4;i++) document.getElementById("tt"+i).innerHTML = a[i];
+   YY();
    with (Dl.style) {
       left = (WW/2)-(NW+2*PD)/2+"px";
       top  = (WH/2)-(NH+2*PD)/2+"px";
@@ -71,13 +110,38 @@ function ST() {
    W1.tp = 'Sum';
    Tg(W1);
 }
+function SL() { alert('Not yet!'); }
+function SS() { Tg(S1); Tg(BK); SC.focus(); }
+function Sk() {
+   L1.style.visibility = 'hidden'
+   L1.innerHTML = '';
+   if (SC.value!='') {
+	   for(var i=0; i<GM.length; i++)
+		  if (NM[i].indexOf(SC.value)>-1) {
+			 var e = document.createElement('DIV');
+			 e.idx = i;
+			 e.className = 'hv';
+			 e.innerHTML = '<div style="display:inline-block;width:10px;height:10px;border-radius:10px;border:1px solid black;background-color:'+TC[RK[i]]+'"></div> <span class="sk">'+NM[i].replace(SC.value,'<B>'+SC.value+'</B>')+'</span>';
+			 e.onclick = function() {
+			    Su();
+			    if (FT==2) Zm(LG[this.idx],LT[this.idx]);
+			    Zm(LG[this.idx],LT[this.idx]);
+			    if (UL!=null) Bd(DV[UL],false);
+			    UL = this.idx;
+			    Bd(DV[UL],true);
+			 }
+			 L1.appendChild(e);
+		  }
+	   if (L1.childElementCount>0) L1.style.visibility = 'visible'
+   }
+}
 var WH = window.innerHeight;
 var WW = window.innerWidth;
 var FC = WH/1500.0;
 var FT = 1;
 var FG = 2;
 var NW = 300;
-var NH = 70;
+var NH = 60;
 var PD = 10;
 var SB = 14;
 var TC = ['#FFFFFF','#F4C299','#99BBC9','#EEC13C'];
@@ -87,16 +151,28 @@ var M2 = document.getElementById('m2');
 var BK = document.getElementById('bk');
 var W1 = document.getElementById('w1');
 var Dl = document.getElementById('d1');
+var S1 = document.getElementById('s1');
+var SC = document.getElementById('sc');
+var L1 = document.getElementById('l1');
+
 var s = '<table width="100%"><tr><td colspan="4" align="center"><span id="tt"></span><br/><br/></td></tr><tr>';
-for(var i=0; i<4; i++) s += '<td align="center"><div id="mk'+i+'" style="width:20px;height:20px;border:3px solid #DDD;border-radius:20px;background-color:'+TC[i]+';" onclick="Tc(event,'+i+')"></div><span id="tt'+i+'"></span></td>'
+for(var i=0; i<4; i++) s += '<td align="center"><div id="mk'+i+'" style="margin-bottom:3px;width:20px;height:20px;border:3px solid #DDD;border-radius:20px;background-color:'+TC[i]+';" onclick="Tc(event,'+i+')"></div><span id="tt'+i+'"></span></td>'
 s += '</tr></table>';
 Dl.innerHTML = s;
 M1.width = Math.trunc(FC*2600.0);
 M1.height= Math.trunc(FC*1500.0);
 M2.width = Math.trunc(FG*FC*2600.0);
 M2.height= Math.trunc(FG*FC*1500.0);
+L1.style.maxHeight = 30*Math.trunc(((WH - 70)/60))+'px';
+SC.style.width = (WW-210)+'px';
 
-if (document.cookie=='') document.cookie='@01; expires=01 Jan 2050 00:00:00 UTC; path=/;';
+if (document.cookie=='') {
+alert(document.cookie);
+document.cookie='@01SSSS; expires=01 Jan 2050 00:00:00 UTC; path=/;';
+alert(document.cookie);
+}
+var GG = new Array();
+for(var i=0; i<4; i++) GG[i] = document.cookie.substr(i+3,1);
 
 var CD = new Array();
 var LT = new Array();
@@ -113,10 +189,12 @@ for(var i=0; i<GM.length; i++) {
    var q = document.cookie.indexOf(','+CD[i]);
    RK[i] = (q==-1)?0:document.cookie.substr(q+3,1);
 }
+
 var UL = null;
 for(var i=0; i<GM.length; i++) {
    var e = document.createElement('DIV');
    e.idx = i;
+   e.title = NM[i];
    with(e.style) {
       position = 'absolute';
       left = (LG[i]-SB/2)+'px';
@@ -132,7 +210,7 @@ for(var i=0; i<GM.length; i++) {
       if (FT==1)
          Zm(LG[this.idx],LT[this.idx]);
       else {
-         if (UL) DV[UL].style.zIndex = 10+UL;
+         if (UL!=null) { DV[UL].style.zIndex = 10+UL; Bd(DV[UL],false); }
          UL = this.idx;
          DV[UL].style.zIndex = 9;
          Bd(DV[UL],true);
@@ -152,5 +230,6 @@ for(var i=0; i<GM.length; i++) {
    document.body.appendChild(e);
    DV[i] = e;
 }
+Vz();
 </script>
 </html>

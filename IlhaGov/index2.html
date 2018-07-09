@@ -9,6 +9,8 @@
 body {padding:0;margin:0;background-color:#AADAFF; font-size:10pt;font-weight:bold;font-family:arial, sans-serif;line-height:90%;}
 .sk { color:grey; font-weight:normal; }
 B { color:black; }
+.hv { height:24px; line-height:24px; white-sSpace:nowrap; overflow:hidden; text-overflow:ellipsis; vertical-align:middle; }
+.hv:hover { background-color: #E0E0E0; }
 </style>
 </head>
 <body>
@@ -23,7 +25,7 @@ B { color:black; }
   <input type='text' id='sc' style="position:absolute;right:40px;background-color:white;padding: 0px 5px 0px 5px;border:none;border-radius:5px;height:30px;z-index:902;" onkeyup='Sk()'/>
   <div style='position:absolute;right:0px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='Sw(event)'><img src='close.png'/></div>
  </div>
- <div id='l1' style="position:fixed;top:50px;left:10px;right:10px;padding:5px;background-color:white;border-radius:5px;visibility:hidden;"></div>
+ <div id='l1' style="position:fixed;top:50px;left:10px;right:10px;padding:5px;background-color:white;border-radius:5px;visibility:hidden;overflow-y:auto;overflow-x:hidden;"></div>
 </div>
 <div style='position:fixed;top:10px;right:10px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='ST()'><img src='gear.png'/></div>
 <div style='position:fixed;top:10px;right:50px;background-color:white;width:30px;height:30px;border-radius:5px;z-index:899;' onclick='SL()'><img src='list.png'/></div>
@@ -33,7 +35,19 @@ B { color:black; }
 function Tg(t) { with(t.style) display = (display=='block')?'none':'block'; }
 function Cx(lng) { return 9+Math.floor(1000000*(parseFloat(lng)+43.265925)/(110240.0/2569.0)); }
 function Cy(lat) { return 5-Math.floor(1000000*(parseFloat(lat)+22.775753)/( 58224.0/1472.0)); }
-function Bd(c,f) {with(c.style) {borderColor=(f)?"#00F":"black"; borderWidth=(f)?"3px":"1px"; }}
+function Bd(c,f) {
+   with(c.style) {
+      if (f) {
+         border ='4px solid #00F';
+		 left = (parseInt(left.slice(0,-2),10)-3)+'px';
+		 top  = (parseInt(top.slice(0,-2),10)-3)+'px';
+      } else {
+         border ='1px solid black';
+		 left = (parseInt(left.slice(0,-2),10)+3)+'px';
+		 top  = (parseInt(top.slice(0,-2),10)+3)+'px';
+      }
+   }
+}
 function Vz() { for(var i=0;i<GM.length;i++) DV[i].style.display=(GG[RK[i]]=='S')?'block':'none'; }
 function Zm(x,y) {
    Tg(M1);
@@ -56,7 +70,7 @@ function TT(n) {
    }
 }
 function YY() {for(var i=0;i<4;i++) document.getElementById("mk"+i).style.borderColor = (GG[i]=='S')?"black":"#DDD";}
-function Cw(e) { if (W1.tp=='Gym')Bd(DV[UL],false); Tg(W1); Tg(BK); e.stopPropagation(); }
+function Cw(e) { Tg(W1); Tg(BK); e.stopPropagation(); }
 function Su()  { L1.innerHTML = ''; L1.style.visibility='hidden'; SC.value=''; Tg(S1); Tg(BK); }
 function Sw(e) { Su(); e.stopPropagation(); }
 function Tc(e,n) {
@@ -97,7 +111,7 @@ function ST() {
    Tg(W1);
 }
 function SL() { alert('Not yet!'); }
-function SS() { Tg(S1); Tg(BK); }
+function SS() { Tg(S1); Tg(BK); SC.focus(); }
 function Sk() {
    L1.style.visibility = 'hidden'
    L1.innerHTML = '';
@@ -106,19 +120,15 @@ function Sk() {
 		  if (NM[i].indexOf(SC.value)>-1) {
 			 var e = document.createElement('DIV');
 			 e.idx = i;
-			 e.style.height = '24px';
-			 e.style.lineHeight = '24px';
+			 e.className = 'hv';
 			 e.innerHTML = '<div style="display:inline-block;width:10px;height:10px;border-radius:10px;border:1px solid black;background-color:'+TC[RK[i]]+'"></div> <span class="sk">'+NM[i].replace(SC.value,'<B>'+SC.value+'</B>')+'</span>';
 			 e.onclick = function() {
 			    Su();
 			    if (FT==2) Zm(LG[this.idx],LT[this.idx]);
 			    Zm(LG[this.idx],LT[this.idx]);
-			    DV[this.idx].style.borderWidth='5px';
-			    DV[this.idx].style.borderColor='#00F';
-			    DV[this.idx].style.transition ='border 13s';
-			    //DV[this.idx].style.borderWidth='1px';
-			    //DV[this.idx].style.borderColor='black';
-			    //DV[this.idx].style.transition ='border 15s';
+			    if (UL!=null) Bd(DV[UL],false);
+			    UL = this.idx;
+			    Bd(DV[UL],true);
 			 }
 			 L1.appendChild(e);
 		  }
@@ -146,13 +156,15 @@ var SC = document.getElementById('sc');
 var L1 = document.getElementById('l1');
 
 var s = '<table width="100%"><tr><td colspan="4" align="center"><span id="tt"></span><br/><br/></td></tr><tr>';
-for(var i=0; i<4; i++) s += '<td align="center"><div id="mk'+i+'" style="width:20px;height:20px;border:3px solid #DDD;border-radius:20px;background-color:'+TC[i]+';" onclick="Tc(event,'+i+')"></div><span id="tt'+i+'"></span></td>'
+for(var i=0; i<4; i++) s += '<td align="center"><div id="mk'+i+'" style="margin-bottom:3px;width:20px;height:20px;border:3px solid #DDD;border-radius:20px;background-color:'+TC[i]+';" onclick="Tc(event,'+i+')"></div><span id="tt'+i+'"></span></td>'
 s += '</tr></table>';
 Dl.innerHTML = s;
 M1.width = Math.trunc(FC*2600.0);
 M1.height= Math.trunc(FC*1500.0);
 M2.width = Math.trunc(FG*FC*2600.0);
 M2.height= Math.trunc(FG*FC*1500.0);
+L1.style.maxHeight = 30*Math.trunc(((WH - 70)/60))+'px';
+SC.style.width = (WW-210)+'px';
 
 if (document.cookie=='') {
 alert(document.cookie);
@@ -182,6 +194,7 @@ var UL = null;
 for(var i=0; i<GM.length; i++) {
    var e = document.createElement('DIV');
    e.idx = i;
+   e.title = NM[i];
    with(e.style) {
       position = 'absolute';
       left = (LG[i]-SB/2)+'px';
@@ -197,7 +210,7 @@ for(var i=0; i<GM.length; i++) {
       if (FT==1)
          Zm(LG[this.idx],LT[this.idx]);
       else {
-         if (UL) DV[UL].style.zIndex = 10+UL;
+         if (UL!=null) { DV[UL].style.zIndex = 10+UL; Bd(DV[UL],false); }
          UL = this.idx;
          DV[UL].style.zIndex = 9;
          Bd(DV[UL],true);
