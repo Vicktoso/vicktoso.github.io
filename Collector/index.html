@@ -6,41 +6,41 @@
 <meta http-equiv="Cache-Control" content="no-store"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style>
-IMG { width:50px; height:50px; background-color:white; }
-TD { text-align: center; }
-SPAN { font-size:12pt;font-weight:bold;font-family:arial,sans-serif; }
-.g1 { padding:5px; background-color:#CCC; }
-.g2 { padding:5px; background-color:#DDD; }
-.g3 { padding:5px; background-color:#EEE; }
-.g4 { padding:5px; background-color:#FFF; }
-
+body { margin:0px; padding:0px }
+img { width:50px; height:50px; background-color:white; }
+td { text-align: center; }
+span { line-height:20px;font-size:20px;font-weight:bold;font-family:arial,sans-serif; }
+.tn { position:absolute; margin-left:  0px; color: #ccc; }
+.cr { position:absolute; margin-left:245px; color: #ccc; font-size: 30px; font-weight: bold; line-height:20px;}
+.tr { position:absolute; margin-left:245px; top:150px; width:0; height:0; border-top: 15px solid transparent; border-left: 15px solid #ccc; border-bottom: 15px solid transparent; }
+.tl { position:absolute; margin-left:  5px; top:150px; width:0; height:0; border-top: 15px solid transparent; border-right:15px solid #ccc; border-bottom: 15px solid transparent; }
+.cr:hover, .cr:focus { color: black; text-decoration: none; cursor: pointer; }
+.tr:hover, .tr:focus { border-left-color:  black; }
+.tl:hover, .tl:focus { border-right-color: black; }
+}
 </style>
 </head>
 <body>
-<div id='bg' style="top:0px;left:0px;width:100%;height:100%;background-color:#DDD;opacity:1.0;z-index:0;"></div>
+<div id='bg' style="top:0px;left:0px;width:100%;height:100%;opacity:1.0;z-index:0;"></div>
 <div id='bk' style="position:fixed;top:0px;left:0px;width:100%;height:100%;background-color:#777;opacity:0.5;z-index:900;display:none;"></div>
-<div id='w1' style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:901;display:none;" onclick="Cw(event)">
- <div id='d1' style="position:fixed;background-color:white;padding:10px;border-radius:10px;z-index:902;" onclick="Cw(event)">
+<div id='w1' style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:901;display:none;">
+ <div id='d1' style="position:fixed;background-color:white;padding:10px;border-radius:10px;z-index:902;">
   <table width="100%">
-   <tr><td colspan="4"><span id="tt"></span></td></tr>
-   <tr><td colspan="4"><img id='pkm' src='pkm/000.png' style='width:256px;height:256px'></td></tr>
+   <tr><td colspan="4" style='vertical-align:middle'>
+     <div id='tn' class='tn'>#000</div>
+     <div class='cr' onclick="Cw(event)">&times;</div>
+     <span id='tt'>Pokémon</span>
+   </td></tr>
+   <tr><td colspan="4">
+    <img id='pkm' src='pkm/000.png' style='width:256px;height:256px;'>
+    <div class="tl" onclick="Pw(event,-1)"></div>
+    <div class="tr" onclick="Pw(event, 1)"></div>
+   </td></tr>
    <tr>
-    <td><img src='pkm/catch.png'></td>
-    <td><img src='pkm/lucky.png'></td>
-    <td><img src='pkm/shiny.png'></td>
-    <td><img src='pkm/100%.png'></td>
-   </tr>
-   <tr>
-    <td><span id="t1"><span>0</td>
-    <td><span id="t2"><span>0</td>
-    <td><span id="t3"><span>0</td>
-    <td><span id="t4"><span>0</td>
-   </tr>
-   <tr>
-    <td><input type='checkbox'/></td>
-    <td><input type='checkbox'/></td>
-    <td><input type='checkbox'/></td>
-    <td><input type='checkbox'/></td>
+    <td><img id='i0' src='pkm/catch0.png' onclick='CI(event,0)'></td>
+    <td><img id='i1' src='pkm/lucky0.png' onclick='CI(event,1)'></td>
+    <td><img id='i2' src='pkm/shiny0.png' onclick='CI(event,2)'></td>
+    <td><img id='i3' src='pkm/perfy0.png' onclick='CI(event,3)'></td>
    </tr>
   </table>
  </div>
@@ -64,8 +64,8 @@ document.head.appendChild(S);
 
 var WH = window.innerHeight;
 var WW = window.innerWidth;
-var NW = 300;
-var NH = 60;
+var NW = 250;
+var NH = 330;
 var PD = 10;
 
 var BK = document.getElementById('bk');
@@ -74,13 +74,42 @@ var Dl = document.getElementById('d1');
 
 function Tg(t) { with(t.style) display = (display=='block')?'none':'block'; }
 function Cw(e) { Tg(W1); Tg(BK); e.stopPropagation(); }
-function OC(n){ Tg(document.getElementById('g'+n)); }
+function OC(n) { Tg(document.getElementById('g'+n)); }
+function Ig(x) { for (var j=0; j<4; j++) document.getElementById('i'+j).src = 'pkm/'+IM[j]+x.substr(j,1)+'.png'; }
+function CI(e,n) {
+   var k = TB[Dl.c].l.split('');
+   var s = '';
+   if (n==0) {
+      s = (k[0]=='0')?'1000':'0000';
+   } else {
+      if (n!=2||TB[Dl.c].t=='S') k[n] = (k[n]=='0')?'1':'0';
+      k[0] = (k[n]=='1')?'1':k[0];
+      s = k.join('');
+   }
+   localStorage.setItem(Dl.c,s);
+   Ig(s);
+   TB[Dl.c].l = s;
+   TB[Dl.c].i.className = (TB[Dl.c].t=='S'?'s':'n')+s;
+   e.stopPropagation();
+}
+function Pw(e,d) {
+   var p = TB[Dl.c].x;
+   if (d<0) { if (p>0) p--; }
+   else { if (p<PK.length-1) p++; }
+   if (p!=TB[Dl.c].i) {
+      Cw(e);
+      var c = PK[p].substr(2,4).replace(' ','');
+      TB[c].i.onclick();
+   }
+}
 
+var IM = ['catch','lucky','shiny','perfy'];
 var GN = ["","Kanto","Johto","Hoenn","Sinnoh"];
-var PK = ["1S001 Bulbasaur","1S002 Ivysaur","1S003 Venusaur","1S004 Charmander","1S005 Charmeleon","1S006 Charizard","1S007 Squirtle","1S008 Wartortle","1S009 Blastoise","1S007gSquirtle (Sunglasses)","1S008gWartortle (Sunglasses)","1S009gBlastoise (Sunglasses)","1-010 Caterpie","1-011 Metapod","1-012 Butterfree","1-013 Weedle","1-014 Kakuna","1-015 Beedrill","1-016 Pidgey","1-017 Pidgeotto","1-018 Pidgeot","1-019 Rattata","1-020 Raticate","1-019aAlolan Rattata","1-020aAlolan Raticate","1-021 Spearow","1-022 Fearow","1-023 Ekans","1-024 Arbok","1S025 Pikachu","1S025bPikachu (Holiday)","1S025cPikachu (Party)","1S025dPikachu (Ash)","1S025ePikachu (Halloween)","1S025fPikachu (Summer)","1S025gPikachu (Black cap)","1S026 Raichu","1S026aAlolan Raichu","1S026bRaichu (Holiday)","1S026cRaichu (Party)","1S026dRaichu (Ash)","1S026eRaichu (Halloween)","1S026fRaichu (Summer)","1S026gRaichu (Black cap)","1-027 Sandshrew","1-027aAlolan Sandshrew","1-028 Sandslash","1-028aAlolan Sandslash","1-029 Nidoran?","1-030 Nidorina","1-031 Nidoqueen","1-032 Nidoran?","1-033 Nidorino","1-034 Nidoking","1-035 Clefairy","1-036 Clefable","1-037 Vulpix","1-038 Ninetales","1-037aAlolan Vulpix","1-038aAlolan Ninetales","1-039 Jigglypuff","1-040 Wigglytuff","1-041 Zubat","1-042 Golbat","1-043 Oddish","1-044 Gloom","1-045 Vileplume","1-046 Paras","1-047 Parasect","1-048 Venonat","1-049 Venomoth","1-050 Diglett","1-051 Dugtrio","1-050aAlolan Diglett","1-051aAlolan Dugtrio","1-052 Meowth","1-053 Persian","1-052aAlolan Meowth","1-053aAlolan Persian","1-054 Psyduck","1-055 Golduck","1-056 Mankey","1-057 Primeape","1S058 Growlithe","1S059 Arcanine","1-060 Poliwag","1-061 Poliwhirl","1-062 Poliwrath","1-063 Abra","1-064 Kadabra","1-065 Alakazam","1-066 Machop","1-067 Machoke","1-068 Machamp","1-069 Bellsprout","1-070 Weepinbell","1-071 Victreebel (G)","1-072 Tentacool","1-073 Tentacruel","1S074 Geodude","1S075 Graveler","1S076 Golem","1S074aAlolan Geodude","1S075aAlolan Graveler","1S076aAlolan Golem","1-077 Ponyta","1-078 Rapidash","1-079 Slowpoke","1-080 Slowbro","1-081 Magnemite","1-082 Magneton","1-083 Farfetch'd","1-084 Doduo","1-085 Dodrio","1-086 Seel","1-087 Dewgong","1S088 Grimer","1S089 Muk","1S088aAlolan Grimer","1S089aAlolan Muk","1S090 Shellder","1S091 Cloyster","1-092 Gastly","1-093 Haunter","1-094 Gengar","1-095 Onix","1S096 Drowzee","1S097 Hypno","1S098 Krabby","1S099 Kingler","1-100 Voltorb","1-101 Electrode","1-102 Exeggcute","1-103 Exeggutor","1-103aAlolan Exeggutor","1-104 Cubone","1-105 Marowak","1-105aAlolan Marowak","1-106 Hitmonlee","1-107 Hitmonchan","1-108 Lickitung","1-109 Koffing","1-110 Weezing","1-111 Rhyhorn","1-112 Rhydon","1-113 Chansey","1-114 Tangela","1-115 Kangaskhan","1-116 Horsea","1-117 Seadra","1-118 Goldeen","1-119 Seaking","1-120 Staryu","1-121 Starmie","1-122 Mr. Mime","1-123 Scyther","1-124 Jynx","1-125 Electabuzz","1S126 Magmar","1-127 Pinsir","1-128 Tauros","1S129 Magikarp","1S130 Gyarados","1-131 Lapras","1-132 Ditto","1S133 Eevee","1S134 Vaporeon","1S135 Jolteon","1S136 Flareon","1-137 Porygon","1S138 Omanyte","1S139 Omastar","1S140 Kabuto","1S141 Kabutops","1S142 Aerodactyl","1-143 Snorlax","1S144 Articuno","1S145 Zapdos","1S146 Moltres","1S147 Dratini","1S148 Dragonair","1S149 Dragonite","1-150 Mewtwo","1-151 Mew","2S152 Chikorita","2S153 Bayleef","2S154 Meganium","2-155 Cyndaquil","2-156 Quilava","2-157 Typhlosion","2-158 Totodile","2-159 Croconaw","2-160 Feraligatr","2-161 Sentret","2-162 Furret","2-163 Hoothoot","2-164 Noctowl","2-165 Ledyba","2-166 Ledian","2-167 Spinarak","2-168 Ariados","2-169 Crobat","2-170 Chinchou","2-171 Lanturn","2S172 Pichu","2S172bPichu (Holiday)","2S172cPichu (Party)","2S172dPichu (Ash)","2S172ePichu (Halloween)","2S172fPichu (Summer)","2-173 Cleffa","2-174 Igglybuff","2S175 Togepi","2S176 Togetic","2S177 Natu","2S178 Xatu","2S179 Mareep","2S180 Flaaffy","2S181 Ampharos","2-182 Bellossom","2-183 Marill","2-184 Azumarill","2-185 Sudowoodo","2-186 Politoed","2-187 Hoppip","2-188 Skiploom","2-189 Jumpluff","2-190 Aipom","2S191 Sunkern","2S192 Sunflora","2-193 Yanma","2-194 Wooper","2-195 Quagsire","2S196 Espeon","2S197 Umbreon","2S198 Murkrow","2-199 Slowking","2-200 Misdreavus","2-201aUnown A","2-201bUnown B","2-201cUnown C","2-201dUnown D","2-201eUnown E","2-201fUnown F","2-201gUnown G","2-201hUnown H","2-201iUnown I","2-201jUnown J","2-201kUnown K","2-201lUnown L","2-201mUnown M","2-201nUnown N","2-201oUnown O","2-201pUnown P","2-201qUnown Q","2-201rUnown R","2-201sUnown S","2-201tUnown T","2-201uUnown U","2-201vUnown V","2-201wUnown W","2-201xUnown X","2-201yUnown Y","2-201zUnown Z","2-201!Unown !","2-201$Unown ?","2S202 Wobbuffet","2-203 Girafarig","2-204 Pineco","2-205 Forretress","2-206 Dunsparce","2-207 Gligar","2-208 Steelix","2S209 Snubbull","2S210 Granbull","2-211 Qwilfish","2-212 Scizor","2-213 Shuckle","2-214 Heracross","2-215 Sneasel","2-216 Teddiursa","2-217 Ursaring","2-218 Slugma","2-219 Magcargo","2-220 Swinub","2-221 Piloswine","2-222 Corsola","2-223 Remoraid","2-224 Octillery","2-225 Delibird","2-226 Mantine","2-227 Skarmory","2S228 Houndour","2S229 Houndoom","2-230 Kingdra","2-231 Phanpy","2-232 Donphan","2-233 Porygon2","2-234 Stantler","2X235 Smeargle","2-236 Tyrogue","2-237 Hitmontop","2-238 Smoochum","2-239 Elekid","2S240 Magby","2-241 Miltank","2-242 Blissey","2-243 Raikou","2-244 Entei","2-245 Suicune","2S246 Larvitar","2S247 Pupitar","2S248 Tyranitar","2S249 Lugia","2S250 Ho-Oh","2-251 Celebi","3-252 Treecko","3-253 Grovyle","3-254 Sceptile","3-255 Torchic","3-256 Combusken","3-257 Blaziken","3-258 Mudkip","3-259 Marshtomp","3-260 Swampert","3S261 Poochyena","3S262 Mightyena","3-263 Zigzagoon","3-264 Linoone","3-265 Wurmple","3-266 Silcoon","3-267 Beautifly","3-268 Cascoon","3-269 Dustox","3-270 Lotad","3-271 Lombre","3-272 Ludicolo","3-273 Seedot","3-274 Nuzleaf","3-275 Shiftry","3-276 Taillow","3-277 Swellow","3S278 Wingull","3S279 Pelipper","3-280 Ralts","3-281 Kirlia","3-282 Gardevoir","3-283 Surskit","3-284 Masquerain","3-285 Shroomish","3-286 Breloom","3-287 Slakoth","3-288 Vigoroth","3-289 Slaking","3X290 Nincada","3X291 Ninjask","3X292 Shedinja","3-293 Whismur","3-294 Loudred","3-295 Exploud","3S296 Makuhita","3S297 Hariyama","3-298 Azurill","3-299 Nosepass","3-300 Skitty","3-301 Delcatty","3S302 Sableye","3S303 Mawile","3S304 Aron","3S305 Lairon","3S306 Aggron","3S307 Meditite","3S308 Medicham","3-309 Electrike","3-310 Manectric","3S311 Plusle","3S312 Minun","3-313 Volbeat","3-314 Illumise","3S315 Roselia","3-316 Gulpin","3-317 Swalot","3-318 Carvanha","3-319 Sharpedo","3S320 Wailmer","3S321 Wailord","3-322 Numel","3-323 Camerupt","3-324 Torkoal","3-325 Spoink","3-326 Grumpig","3-327aSpinda #1","3-327bSpinda #2","3-327cSpinda #3","3-327dSpinda #4","3-327eSpinda #5","3-327fSpinda #6","3-327gSpinda #7","3-327hSpinda #8","3-328 Trapinch","3-329 Vibrava","3-330 Flygon","3-331 Cacnea","3-332 Cacturne","3S333 Swablu","3S334 Altaria","3-335 Zangoose","3-336 Seviper","3-337 Lunatone","3-338 Solrock","3-339 Barboach","3-340 Whiscash","3-341 Corphish","3-342 Crawdaunt","3-343 Baltoy","3-344 Claydol","3-345 Lileep","3-346 Cradily","3-347 Anorith","3-348 Armaldo","3-349 Feebas","3-350 Milotic","3-351 Castform (Normal)","3-351aCastform (Sunny)","3-351bCastform (Rainy)","3-351cCastform (Snowy)","3X352 Kecleon","3S353 Shuppet","3S354 Banette","3S355 Duskull","3S356 Dusclops","3-357 Tropius","3-358 Chimecho","3S359 Absol","3S360 Wynaut","3S361 Snorunt","3S362 Glalie","3-363 Spheal","3-364 Sealeo","3-365 Walrein","3X366 Clamperl","3X367 Huntail","3X368 Gorebyss","3-369 Relicanth","3S370 Luvdisc","3-371 Bagon","3-372 Shelgon","3-373 Salamence","3S374 Beldum","3S375 Metang","3S376 Metagross","3-377 Regirock","3-378 Regice","3-379 Registeel","3-380 Latias","3-381 Latios","3S382 Kyogre","3-383 Groudon","3-384 Rayquaza","3X385 Jirachi","3-386 Deoxys (Normal)","3-386aDeoxys (Attack)","3-386dDeoxys (Defense)","3-386sDeoxys (Speed)","4-387 Turtwig","4-388 Grotle","4-389 Torterra","4-390 Chimchar","4-391 Monferno","4-392 Infernape","4-393 Piplup","4-394 Prinplup","4-395 Empoleon","4-396 Starly","4-397 Staravia","4-398 Staraptor","4-399 Bidoof","4-400 Bibarel","4-401 Kricketot","4-402 Kricketune","4S403 Shinx","4S404 Luxio","4S405 Luxray","4X406 Budew","4X407 Roserade","4X408 Cranidos","4X409 Rampardos","4X410 Shieldon","4X411 Bastiodon","4?412 Burmy","4?413 Wormadam","4?414 Mothim","4X415 Combee","4X416 Vespiquen","4X417 Pachirisu","4?418 Buizel","4?419 Floatzel","4?420 Cherubi","4?421 Cherrim","4?422 Shellos","4?423 Gastrodon","4X424 Ambipom","4X425 Drifloon","4X426 Drifblim","4X427 Buneary","4X428 Lopunny","4?429 Mismagius","4X430 Honchkrow","4X431 Glameow","4X432 Purugly","4X433 Chingling","4X434 Stunky","4X435 Skuntank","4X436 Bronzor","4X437 Bronzong","4?438 Bonsly","4X439 Mime Jr.","4X440 Happiny","4X441 Chatot","4X442 Spiritomb","4X443 Gible","4X444 Gabite","4X445 Garchomp","4X446 Munchlax","4X447 Riolu","4X448 Lucario","4?449 Hippopotas","4?450 Hippowdon","4X451 Skorupi","4X452 Drapion","4X453 Croagunk","4X454 Toxicroak","4X455 Carnivine","4?456 Finneon","4?457 Lumineon","4?458 Mantyke","4?459 Snover","4?460 Abomasnow","4X461 Weavile","4X462 Magnezone","4X463 Lickilicky","4X464 Rhyperior","4?465 Tangrowth","4X466 Electivire","4X467 Magmortar","4X468 Togekiss","4?469 Yanmega","4X470 Leafeon","4X471 Glaceon","4X472 Gliscor","4X473 Mamoswine","4X474 Porygon-Z","4X475 Gallade","4X476 Probopass","4?477 Dusknoir","4X478 Froslass","4?479 Rotom","4X480 Uxie","4X481 Mesprit","4X482 Azelf","4X483 Dialga","4X484 Palkia","4X485 Heatran","4X486 Regigigas","4?487 Giratina","4X488 Cresselia","4X489 Phione","4X490 Manaphy","4X491 Darkrai","4?492 Shaymin","4?493 Arceus"];
+var GK = ['','#EFDFFF','#E3FFFF','#D3FCFF','#DFCFFF'];
+var PK = ["1S001 Bulbasaur","1S002 Ivysaur","1S003 Venusaur","1S004 Charmander","1S005 Charmeleon","1S006 Charizard","1S007 Squirtle","1S008 Wartortle","1S009 Blastoise","1S007gSquirtle (Sunglasses)","1S008gWartortle (Sunglasses)","1S009gBlastoise (Sunglasses)","1-010 Caterpie","1-011 Metapod","1-012 Butterfree","1-013 Weedle","1-014 Kakuna","1-015 Beedrill","1-016 Pidgey","1-017 Pidgeotto","1-018 Pidgeot","1-019 Rattata","1-020 Raticate","1-019aAlolan Rattata","1-020aAlolan Raticate","1-021 Spearow","1-022 Fearow","1-023 Ekans","1-024 Arbok","1S025 Pikachu","1S025bPikachu (Holiday)","1S025cPikachu (Party)","1S025dPikachu (Ash)","1S025ePikachu (Halloween)","1S025fPikachu (Summer)","1S025gPikachu (Black cap)","1S026 Raichu","1S026aAlolan Raichu","1S026bRaichu (Holiday)","1S026cRaichu (Party)","1S026dRaichu (Ash)","1S026eRaichu (Halloween)","1S026fRaichu (Summer)","1S026gRaichu (Black cap)","1-027 Sandshrew","1-027aAlolan Sandshrew","1-028 Sandslash","1-028aAlolan Sandslash","1-029 Nidoran?","1-030 Nidorina","1-031 Nidoqueen","1-032 Nidoran?","1-033 Nidorino","1-034 Nidoking","1-035 Clefairy","1-036 Clefable","1-037 Vulpix","1-038 Ninetales","1-037aAlolan Vulpix","1-038aAlolan Ninetales","1-039 Jigglypuff","1-040 Wigglytuff","1-041 Zubat","1-042 Golbat","1-043 Oddish","1-044 Gloom","1-045 Vileplume","1-046 Paras","1-047 Parasect","1-048 Venonat","1-049 Venomoth","1-050 Diglett","1-051 Dugtrio","1-050aAlolan Diglett","1-051aAlolan Dugtrio","1-052 Meowth","1-053 Persian","1-052aAlolan Meowth","1-053aAlolan Persian","1-054 Psyduck","1-055 Golduck","1-056 Mankey","1-057 Primeape","1S058 Growlithe","1S059 Arcanine","1-060 Poliwag","1-061 Poliwhirl","1-062 Poliwrath","1-063 Abra","1-064 Kadabra","1-065 Alakazam","1-066 Machop","1-067 Machoke","1-068 Machamp","1-069 Bellsprout","1-070 Weepinbell","1-071 Victreebel (G)","1-072 Tentacool","1-073 Tentacruel","1S074 Geodude","1S075 Graveler","1S076 Golem","1S074aAlolan Geodude","1S075aAlolan Graveler","1S076aAlolan Golem","1-077 Ponyta","1-078 Rapidash","1-079 Slowpoke","1-080 Slowbro","1-081 Magnemite","1-082 Magneton","1-083 Farfetch'd","1-084 Doduo","1-085 Dodrio","1-086 Seel","1-087 Dewgong","1S088 Grimer","1S089 Muk","1S088aAlolan Grimer","1S089aAlolan Muk","1S090 Shellder","1S091 Cloyster","1-092 Gastly","1-093 Haunter","1-094 Gengar","1-095 Onix","1S096 Drowzee","1S097 Hypno","1S098 Krabby","1S099 Kingler","1-100 Voltorb","1-101 Electrode","1-102 Exeggcute","1-103 Exeggutor","1-103aAlolan Exeggutor","1-104 Cubone","1-105 Marowak","1-105aAlolan Marowak","1-106 Hitmonlee","1-107 Hitmonchan","1-108 Lickitung","1-109 Koffing","1-110 Weezing","1-111 Rhyhorn","1-112 Rhydon","1-113 Chansey","1-114 Tangela","1-115 Kangaskhan","1-116 Horsea","1-117 Seadra","1-118 Goldeen","1-119 Seaking","1-120 Staryu","1-121 Starmie","1-122 Mr. Mime","1-123 Scyther","1-124 Jynx","1-125 Electabuzz","1S126 Magmar","1-127 Pinsir","1-128 Tauros","1S129 Magikarp","1S130 Gyarados","1-131 Lapras","1-132 Ditto","1S133 Eevee","1S134 Vaporeon","1S135 Jolteon","1S136 Flareon","1-137 Porygon","1S138 Omanyte","1S139 Omastar","1S140 Kabuto","1S141 Kabutops","1S142 Aerodactyl","1-143 Snorlax","1S144 Articuno","1S145 Zapdos","1S146 Moltres","1S147 Dratini","1S148 Dragonair","1S149 Dragonite","1-150 Mewtwo","1-151 Mew","2S152 Chikorita","2S153 Bayleef","2S154 Meganium","2-155 Cyndaquil","2-156 Quilava","2-157 Typhlosion","2-158 Totodile","2-159 Croconaw","2-160 Feraligatr","2-161 Sentret","2-162 Furret","2-163 Hoothoot","2-164 Noctowl","2-165 Ledyba","2-166 Ledian","2-167 Spinarak","2-168 Ariados","2-169 Crobat","2-170 Chinchou","2-171 Lanturn","2S172 Pichu","2S172bPichu (Holiday)","2S172cPichu (Party)","2S172dPichu (Ash)","2S172ePichu (Halloween)","2S172fPichu (Summer)","2-173 Cleffa","2-174 Igglybuff","2S175 Togepi","2S176 Togetic","2S177 Natu","2S178 Xatu","2S179 Mareep","2S180 Flaaffy","2S181 Ampharos","2-182 Bellossom","2-183 Marill","2-184 Azumarill","2-185 Sudowoodo","2-186 Politoed","2-187 Hoppip","2-188 Skiploom","2-189 Jumpluff","2-190 Aipom","2S191 Sunkern","2S192 Sunflora","2-193 Yanma","2-194 Wooper","2-195 Quagsire","2S196 Espeon","2S197 Umbreon","2S198 Murkrow","2-199 Slowking","2-200 Misdreavus","2-201aUnown A","2-201bUnown B","2-201cUnown C","2-201dUnown D","2-201eUnown E","2-201fUnown F","2-201gUnown G","2-201hUnown H","2-201iUnown I","2-201jUnown J","2-201kUnown K","2-201lUnown L","2-201mUnown M","2-201nUnown N","2-201oUnown O","2-201pUnown P","2-201qUnown Q","2-201rUnown R","2-201sUnown S","2-201tUnown T","2-201uUnown U","2-201vUnown V","2-201wUnown W","2-201xUnown X","2-201yUnown Y","2-201zUnown Z","2-201!Unown !","2-201$Unown ?","2S202 Wobbuffet","2-203 Girafarig","2-204 Pineco","2-205 Forretress","2-206 Dunsparce","2-207 Gligar","2-208 Steelix","2S209 Snubbull","2S210 Granbull","2-211 Qwilfish","2-212 Scizor","2-213 Shuckle","2-214 Heracross","2-215 Sneasel","2-216 Teddiursa","2-217 Ursaring","2-218 Slugma","2-219 Magcargo","2-220 Swinub","2-221 Piloswine","2-222 Corsola","2-223 Remoraid","2-224 Octillery","2-225 Delibird","2-226 Mantine","2-227 Skarmory","2S228 Houndour","2S229 Houndoom","2-230 Kingdra","2-231 Phanpy","2-232 Donphan","2-233 Porygon2","2-234 Stantler","2X235 Smeargle","2-236 Tyrogue","2-237 Hitmontop","2-238 Smoochum","2-239 Elekid","2S240 Magby","2-241 Miltank","2-242 Blissey","2-243 Raikou","2-244 Entei","2-245 Suicune","2S246 Larvitar","2S247 Pupitar","2S248 Tyranitar","2S249 Lugia","2S250 Ho-Oh","2-251 Celebi","3-252 Treecko","3-253 Grovyle","3-254 Sceptile","3-255 Torchic","3-256 Combusken","3-257 Blaziken","3-258 Mudkip","3-259 Marshtomp","3-260 Swampert","3S261 Poochyena","3S262 Mightyena","3-263 Zigzagoon","3-264 Linoone","3-265 Wurmple","3-266 Silcoon","3-267 Beautifly","3-268 Cascoon","3-269 Dustox","3-270 Lotad","3-271 Lombre","3-272 Ludicolo","3-273 Seedot","3-274 Nuzleaf","3-275 Shiftry","3-276 Taillow","3-277 Swellow","3S278 Wingull","3S279 Pelipper","3-280 Ralts","3-281 Kirlia","3-282 Gardevoir","3-283 Surskit","3-284 Masquerain","3-285 Shroomish","3-286 Breloom","3-287 Slakoth","3-288 Vigoroth","3-289 Slaking","3X290 Nincada","3X291 Ninjask","3X292 Shedinja","3-293 Whismur","3-294 Loudred","3-295 Exploud","3S296 Makuhita","3S297 Hariyama","3-298 Azurill","3-299 Nosepass","3-300 Skitty","3-301 Delcatty","3S302 Sableye","3S303 Mawile","3S304 Aron","3S305 Lairon","3S306 Aggron","3S307 Meditite","3S308 Medicham","3-309 Electrike","3-310 Manectric","3S311 Plusle","3S312 Minun","3-313 Volbeat","3-314 Illumise","3S315 Roselia","3-316 Gulpin","3-317 Swalot","3-318 Carvanha","3-319 Sharpedo","3S320 Wailmer","3S321 Wailord","3-322 Numel","3-323 Camerupt","3-324 Torkoal","3-325 Spoink","3-326 Grumpig","3-327aSpinda #1","3-327bSpinda #2","3-327cSpinda #3","3-327dSpinda #4","3-327eSpinda #5","3-327fSpinda #6","3-327gSpinda #7","3-327hSpinda #8","3-328 Trapinch","3-329 Vibrava","3-330 Flygon","3-331 Cacnea","3-332 Cacturne","3S333 Swablu","3S334 Altaria","3-335 Zangoose","3-336 Seviper","3-337 Lunatone","3-338 Solrock","3-339 Barboach","3-340 Whiscash","3-341 Corphish","3-342 Crawdaunt","3-343 Baltoy","3-344 Claydol","3-345 Lileep","3-346 Cradily","3-347 Anorith","3-348 Armaldo","3-349 Feebas","3-350 Milotic","3-351 Castform (Normal)","3-351aCastform (Sunny)","3-351bCastform (Rainy)","3-351cCastform (Snowy)","3X352 Kecleon","3S353 Shuppet","3S354 Banette","3S355 Duskull","3S356 Dusclops","3-357 Tropius","3-358 Chimecho","3S359 Absol","3S360 Wynaut","3S361 Snorunt","3S362 Glalie","3-363 Spheal","3-364 Sealeo","3-365 Walrein","3X366 Clamperl","3X367 Huntail","3X368 Gorebyss","3-369 Relicanth","3S370 Luvdisc","3-371 Bagon","3-372 Shelgon","3-373 Salamence","3S374 Beldum","3S375 Metang","3S376 Metagross","3-377 Regirock","3-378 Regice","3-379 Registeel","3-380 Latias","3-381 Latios","3S382 Kyogre","3-383 Groudon","3-384 Rayquaza","3X385 Jirachi","3-386 Deoxys (Normal)","3-386aDeoxys (Attack)","3-386dDeoxys (Defense)","3-386sDeoxys (Speed)","4-387 Turtwig","4-388 Grotle","4-389 Torterra","4-390 Chimchar","4-391 Monferno","4-392 Infernape","4-393 Piplup","4-394 Prinplup","4-395 Empoleon","4-396 Starly","4-397 Staravia","4-398 Staraptor","4-399 Bidoof","4-400 Bibarel","4-401 Kricketot","4-402 Kricketune","4S403 Shinx","4S404 Luxio","4S405 Luxray","4X406 Budew","4X407 Roserade","4X408 Cranidos","4X409 Rampardos","4X410 Shieldon","4X411 Bastiodon","4?412 Burmy","4?413 Wormadam","4?414 Mothim","4X415 Combee","4X416 Vespiquen","4X417 Pachirisu","4?418 Buizel","4?419 Floatzel","4?420 Cherubi","4?421 Cherrim","4?422 Shellos","4?423 Gastrodon","4X424 Ambipom","4X425 Drifloon","4X426 Drifblim","4X427 Buneary","4X428 Lopunny","4?429 Mismagius","4X430 Honchkrow","4X431 Glameow","4X432 Purugly","4X433 Chingling","4X434 Stunky","4X435 Skuntank","4X436 Bronzor","4X437 Bronzong","4?438 Bonsly","4X439 Mime Jr.","4X440 Happiny","4X441 Chatot","4X442 Spiritomb","4X443 Gible","4X444 Gabite","4X445 Garchomp","4X446 Munchlax","4X447 Riolu","4X448 Lucario","4?449 Hippopotas","4?450 Hippowdon","4X451 Skorupi","4X452 Drapion","4?453 Croagunk","4X454 Toxicroak","4X455 Carnivine","4?456 Finneon","4?457 Lumineon","4?458 Mantyke","4?459 Snover","4?460 Abomasnow","4X461 Weavile","4X462 Magnezone","4X463 Lickilicky","4X464 Rhyperior","4?465 Tangrowth","4X466 Electivire","4X467 Magmortar","4X468 Togekiss","4?469 Yanmega","4X470 Leafeon","4X471 Glaceon","4X472 Gliscor","4X473 Mamoswine","4X474 Porygon-Z","4X475 Gallade","4X476 Probopass","4?477 Dusknoir","4X478 Froslass","4?479 Rotom","4X480 Uxie","4X481 Mesprit","4X482 Azelf","4X483 Dialga","4X484 Palkia","4X485 Heatran","4X486 Regigigas","4?487 Giratina","4X488 Cresselia","4X489 Phione","4?490 Manaphy","4X491 Darkrai","4?492 Shaymin","4?493 Arceus"];
 var TB = new Array();
 var bg = document.getElementById('bg');
-var ga = '';
+var ga = ''; var f;
 for (var i=0; i<PK.length; i++) {
    var g = PK[i].substr(0,1);
    var t = PK[i].substr(1,1);
@@ -88,34 +117,42 @@ for (var i=0; i<PK.length; i++) {
    var n = PK[i].substr(6);
    var l = localStorage.getItem(c);
    if (!l) l='0000';
-   TB[c] = { g:g, t:t, n:n };
+   TB[c] = { g:g, t:t, n:n, l:l, x:i };
    if (g!=ga) {
       ga = g;
       var d = document.createElement('DIV');
-      d.className = 'g'+g;
-      d.innerHTML = '<div class="g'+g+'" onclick="OC('+g+')">'+GN[g]+' ('+g+')</div><div id="g'+g+'" style="display:block;"></div>';
+      with (d.style) {
+         borderRadius="5px";
+         padding="5px";
+         marginBottom="5px";
+         backgroundColor=GK[g];
+      }
+      d.innerHTML = '<div onclick="OC('+g+')" style="padding:5px"><span>'+GN[g]+' ('+g+')</span></div><div id="g'+g+'" style="display:block;"></div>';
       bg.appendChild(d);
       f = document.getElementById('g'+g);
-   }
+   } else f.appendChild(document.createTextNode('\n'));
+
    var e = document.createElement('IMG');
    e.c = c;
    e.src = 'pkm/'+(t=='?'?'000':c)+'.png';
    e.className = (t=='S'?'s':'n')+l;
    e.onclick = function(){
       Tg(BK);
-      document.getElementById('tt').innerText = '?A?A?A?';
+      Dl.c = this.c;
+      document.getElementById('tn').innerText = '#'+c.substr(0,3);
+      document.getElementById('tt').innerText = TB[this.c].n;
+      document.getElementById('pkm').src = 'pkm/'+(TB[this.c].t=='?'?'000':this.c)+'.png';
+      Ig(TB[this.c].l);
       with (Dl.style) {
          left = (WW/2)-(NW+2*PD)/2+"px";
          top  = (WH/2)-(NH+2*PD)/2+"px";
-         width    = NW+"px";
-         minHeight= NH+"px";
+         width  = (NW+2*PD)+"px";
+         height = (NH+2*PD)+"px";
       }
       Tg(W1);
-      localStorage.setItem(this.c,'1111');
    };
    TB[c].i = e;
    f.appendChild(e);
-   f.appendChild(document.createTextNode('\n'));
 }
 </script>
 </body>
