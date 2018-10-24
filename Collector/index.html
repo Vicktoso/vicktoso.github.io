@@ -12,10 +12,10 @@ td { text-align: center; }
 span { line-height:20px;font-size:18px;font-weight:bold;font-family:arial,sans-serif; }
 .tn { position:absolute; margin-left:  0px; color: #ccc; }
 .cr { position:absolute; margin-left:245px; color: #ccc; font-size: 40px; font-weight: bold; line-height:20px;}
-.tr { position:absolute; margin-left:245px; top:150px; width:0; height:0; border-top: 15px solid transparent; border-left: 15px solid #ccc; border-bottom: 15px solid transparent; }
-.tl { position:absolute; margin-left:  5px; top:150px; width:0; height:0; border-top: 15px solid transparent; border-right:15px solid #ccc; border-bottom: 15px solid transparent; }
+.tr { position:absolute; margin-left:240px; top:150px; width:0; height:0; border-top: 20px solid transparent; border-left: 20px solid #ccc; border-bottom: 20px solid transparent; }
+.tl { position:absolute; margin-left:  5px; top:150px; width:0; height:0; border-top: 20px solid transparent; border-right:20px solid #ccc; border-bottom: 20px solid transparent; }
 .cr:hover { color: black; text-decoration: none; cursor: pointer; }
-.tr:hover { border-left-color:  black; }
+.tr:hover { border-left-color:  red; }
 .tl:hover { border-right-color: black; }
 </style>
 </head>
@@ -50,7 +50,7 @@ var H = '089ABCDEF'.split('');
 for (var i=0; i<H.length; i++) {
    var c = ('0000'+parseInt(H[i],16).toString(2)).substr(-4,4);
    var b = c.split('');
-   var t = 'radial-gradient(circle,rgba(215,215,215,0.7),rgba(0,0,0,0.0) 85%);';
+   var t = 'radial-gradient(circle,rgba(215,215,215,0.7),rgba(215,215,215,0.0) 90%);';
    if (b[3]=='1') t='radial-gradient(farthest-corner at 100% 100%,rgba(0,0,128,0.7),rgba(0,0,128,0) 50%),'+t;
    if (b[2]=='1') t='radial-gradient(farthest-corner at 0% 100%,rgba(128,0,128,0.7),rgba(128,0,128,0) 50%),'+t;
    if (b[1]=='1') t='radial-gradient(farthest-corner at 100% 0%,rgba(0,128,0,0.7),rgba(0,128,0,0) 50%),'+t;
@@ -138,7 +138,7 @@ for (var i=0; i<PK.length; i++) {
    e.onclick = function(){
       Tg(BK);
       Dl.c = this.c;
-      document.getElementById('tn').innerText = '#'+c.substr(0,3);
+      document.getElementById('tn').innerText = '#'+this.c.substr(0,3);
       document.getElementById('tt').innerText = TB[this.c].n;
       document.getElementById('pkm').src = 'pkm/'+(TB[this.c].t=='?'?'000':this.c)+'.png';
       Ig(TB[this.c].l);
